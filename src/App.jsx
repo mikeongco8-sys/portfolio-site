@@ -1,86 +1,135 @@
-import { useState } from "react";
-import {
-  motion,
-  useMotionValue,
-  useScroll,
-  useTransform,
-} from "framer-motion";
-
-const projects = [
-  {
-    title: "Viral Lyrical Video",
-    label: "TikTok Content / Video Editing",
-    description:
-      "A short-form lyrical video that reached 655k+ views through strong pacing, text timing, and emotional visual rhythm.",
-    type: "video",
-  },
-  {
-    title: "Social Visual Direction",
-    label: "Graphic Design",
-    description:
-      "Clean social media visuals built around clarity, spacing, and modern digital presentation.",
-    type: "image",
-  },
-  {
-    title: "Customer Experience",
-    label: "Healthcare BPO",
-    description:
-      "One year of healthcare customer support experience with strong communication, accuracy, and adaptability.",
-    type: "text",
-  },
-];
+import { useEffect, useState } from "react";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 
 const skills = [
   "Graphic Design",
-  "Video Editing",
   "TikTok Content",
+  "Video Editing",
   "Data Entry",
   "Customer Service",
-  "Communication",
+  "Problem Solving",
+  "Communication Skills",
+  "CRM Navigation",
+];
+
+const projects = [
+  {
+    title: "Viral TikTok Lyrical Video",
+    description:
+      "A lyrical video project that reached 655k+ views, showing strong audience engagement and creative video editing skills.",
+    type: "video",
+  },
+  {
+    title: "Social Media Graphic Design",
+    description:
+      "Clean and modern graphics designed for social media posts, branding, and online content presentation.",
+    type: "image",
+  },
+  {
+    title: "Creative Video Editing",
+    description:
+      "Short-form video editing focused on visual timing, text placement, and audience retention.",
+    type: "image",
+  },
+];
+
+const experiences = [
+  {
+    title: "Customer Service Representative",
+    description:
+      "Handled healthcare-related customer concerns with strong communication, accuracy, and professionalism.",
+  },
+  {
+    title: "TikTok Content Creator",
+    description:
+      "Created lyrical videos and short-form content with strong audience engagement, including a 655k+ view video.",
+  },
+  {
+    title: "Graphic Designer",
+    description:
+      "Designed clean social media graphics, posters, branding visuals, and digital content.",
+  },
 ];
 
 export default function PortfolioWebsite() {
   const [darkMode, setDarkMode] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [chat, setChat] = useState([
+    {
+      from: "bot",
+      text: "Hi, I’m Mike’s AI assistant. Ask me about his skills, experience, projects, or contact info.",
+    },
+  ]);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const rotateX = useTransform(y, [-100, 100], [7, -7]);
-  const rotateY = useTransform(x, [-100, 100], [-7, 7]);
-  const rotateZ = useTransform(x, [-100, 100], [-3, 3]);
+  const rotateX = useTransform(y, [-120, 120], [10, -10]);
+  const rotateY = useTransform(x, [-120, 120], [-10, 10]);
+  const rotateZ = useTransform(x, [-120, 120], [-5, 5]);
 
-  const { scrollYProgress } = useScroll();
-  const heroScale = useTransform(scrollYProgress, [0, 0.25], [1, 0.96]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0.55]);
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") setDarkMode(true);
+  }, []);
 
-  const theme = darkMode
-    ? "bg-[#050505] text-white"
-    : "bg-[#f5f5f7] text-[#111111]";
+  useEffect(() => {
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
 
-  const card = darkMode
-    ? "bg-white/[0.06] border-white/10"
-    : "bg-white border-black/5";
+  const askBot = () => {
+    if (!message.trim()) return;
+
+    const userMessage = message.toLowerCase();
+    let reply =
+      "You can ask me about Mike’s skills, experience, projects, services, or contact information.";
+
+    if (userMessage.includes("skill")) {
+      reply =
+        "Mike’s skills include Graphic Design, TikTok Content, Video Editing, Data Entry, Customer Service, Problem Solving, Communication, and CRM Navigation.";
+    } else if (userMessage.includes("experience")) {
+      reply =
+        "Mike has experience in healthcare customer service, TikTok content creation, video editing, and graphic design.";
+    } else if (userMessage.includes("project") || userMessage.includes("work")) {
+      reply =
+        "Mike’s featured project is a viral TikTok lyrical video that reached 655k+ views, plus social media design and creative video editing samples.";
+    } else if (userMessage.includes("contact") || userMessage.includes("email")) {
+      reply =
+        "You can contact Mike at mikeongco8@gmail.com or +639458828914. He is based in Cebu City, Philippines.";
+    } else if (userMessage.includes("hire") || userMessage.includes("service")) {
+      reply =
+        "Mike is open for freelance work such as graphic design, social media content, video editing, data entry, and customer support.";
+    }
+
+    setChat([...chat, { from: "user", text: message }, { from: "bot", text: reply }]);
+    setMessage("");
+  };
 
   return (
-    <div className={`min-h-screen overflow-x-hidden ${theme}`}>
+    <div
+      className={`min-h-screen overflow-x-hidden transition-colors duration-500 ${
+        darkMode ? "bg-black text-white" : "bg-[#f5f5f7] text-[#1d1d1f]"
+      }`}
+    >
       <nav
-        className={`fixed left-1/2 top-5 z-50 w-[92%] max-w-6xl -translate-x-1/2 rounded-full border px-5 py-3 backdrop-blur-2xl ${
-          darkMode ? "bg-black/50 border-white/10" : "bg-white/70 border-black/10"
+        className={`fixed top-0 left-0 w-full z-50 backdrop-blur-xl border-b transition ${
+          darkMode
+            ? "bg-black/70 border-white/10"
+            : "bg-white/70 border-black/5"
         }`}
       >
-        <div className="flex items-center justify-between">
-          <a href="#home" className="text-sm font-semibold tracking-tight">
-            Mike Ongco
-          </a>
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <h1 className="font-semibold text-xl">Mike Ongco</h1>
 
-          <div className="hidden gap-2 md:flex">
-            {["Work", "Skills", "Contact"].map((item) => (
+          <div className="hidden md:flex gap-3 text-sm text-gray-500">
+            {["Experience", "Skills", "Projects", "Contact"].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className={`rounded-full px-4 py-2 text-sm transition-all duration-300 ${
+                className={`px-4 py-2 rounded-full transition-all duration-300 ${
                   darkMode
-                    ? "text-white/60 hover:bg-white/10 hover:text-white"
-                    : "text-black/60 hover:bg-black/10 hover:text-black"
+                    ? "hover:bg-white/10 hover:text-white"
+                    : "hover:bg-gray-200 hover:text-black"
                 }`}
               >
                 {item}
@@ -90,60 +139,49 @@ export default function PortfolioWebsite() {
 
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+            className={`px-5 py-2 rounded-full text-sm font-medium transition ${
               darkMode ? "bg-white text-black" : "bg-black text-white"
             }`}
           >
-            {darkMode ? "Light" : "Dark"}
+            {darkMode ? "☀️ Light" : "🌙 Dark"}
           </button>
         </div>
       </nav>
 
-      <motion.section
-        id="home"
-        style={{ scale: heroScale, opacity: heroOpacity }}
-        className="relative flex min-h-screen items-center px-6 pb-24 pt-32"
-      >
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute left-[10%] top-[18%] h-[420px] w-[420px] rounded-full bg-blue-400/20 blur-3xl" />
-          <div className="absolute bottom-[10%] right-[8%] h-[360px] w-[360px] rounded-full bg-purple-400/20 blur-3xl" />
-        </div>
-
-        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-20 lg:grid-cols-[1.15fr_0.85fr]">
+      <section className="min-h-screen flex items-center justify-center px-6 pt-28 pb-20">
+        <div className="max-w-7xl w-full grid lg:grid-cols-2 gap-20 items-center">
           <motion.div
-            initial={{ opacity: 0, y: 38 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8 }}
             className="text-center lg:text-left"
           >
-            <p className="mb-7 text-sm uppercase tracking-[0.45em] text-gray-500">
-              Digital Portfolio
+            <p className="text-gray-500 text-lg mb-4">Portfolio</p>
+
+            <h2 className="text-6xl md:text-8xl font-semibold tracking-tight leading-none">
+              Design that feels simple.
+            </h2>
+
+            <p className="mt-8 text-2xl md:text-3xl text-gray-500 max-w-2xl">
+              I’m Mike Hendrick L. Ongco, a Graphic Designer, TikTok Content
+              Creator, Video Editor, and Data Entry Specialist.
             </p>
 
-            <h1 className="text-6xl font-semibold leading-[0.9] tracking-[-0.075em] md:text-8xl lg:text-9xl">
-              Simple design.
-              <br />
-              Real motion.
-            </h1>
-
-            <p className="mx-auto mt-8 max-w-2xl text-xl leading-relaxed text-gray-500 md:text-2xl lg:mx-0">
-              I create clean visual content, short-form videos, and digital work
-              with clarity, timing, and purpose.
-            </p>
-
-            <div className="mt-10 flex flex-wrap justify-center gap-4 lg:justify-start">
+            <div className="mt-10 flex gap-4 flex-wrap justify-center lg:justify-start">
               <a
-                href="#work"
-                className="rounded-full bg-[#0071e3] px-7 py-4 font-medium text-white transition hover:scale-105 hover:bg-[#0077ed]"
+                href="#projects"
+                className="bg-[#0071e3] text-white px-7 py-4 rounded-full font-medium hover:bg-[#0077ed] transition"
               >
-                View work
+                View My Work
               </a>
 
               <a
                 href="/cv.pdf"
                 download
-                className={`rounded-full px-7 py-4 font-medium transition hover:scale-105 ${
-                  darkMode ? "bg-white text-black" : "bg-black text-white"
+                className={`px-7 py-4 rounded-full font-medium transition ${
+                  darkMode
+                    ? "bg-white text-black"
+                    : "bg-black text-white"
                 }`}
               >
                 Download CV
@@ -151,48 +189,43 @@ export default function PortfolioWebsite() {
             </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 35, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay: 0.15, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="flex justify-center"
-          >
-            <div className="relative h-[680px] w-full max-w-[420px]">
-              <div className="absolute left-1/2 top-0 h-44 w-14 -translate-x-1/2 rounded-b-[2rem] bg-gradient-to-b from-neutral-950 to-neutral-500 shadow-2xl" />
-              <div className="absolute left-1/2 top-36 z-10 h-20 w-20 -translate-x-1/2 rounded-full border-[12px] border-neutral-300 bg-white shadow-xl" />
-              <div className="absolute left-1/2 top-48 z-10 h-12 w-8 -translate-x-1/2 rounded-full border-[8px] border-neutral-400" />
+          <div className="flex justify-center">
+            <div className="relative h-[680px] w-full max-w-[430px] flex justify-center">
+              <div className="absolute top-0 h-40 w-12 rounded-b-[2rem] bg-gradient-to-b from-neutral-900 to-neutral-500 shadow-xl" />
+              <div className="absolute top-32 h-20 w-20 rounded-full border-[12px] border-neutral-300 bg-white shadow-lg z-10" />
+              <div className="absolute top-44 h-12 w-8 rounded-full border-[8px] border-neutral-400 z-10" />
 
               <motion.div
                 drag
-                dragElastic={0.18}
-                dragConstraints={{ left: -65, right: 65, top: -25, bottom: 65 }}
+                dragElastic={0.2}
+                dragConstraints={{ left: -70, right: 70, top: -30, bottom: 60 }}
                 style={{ x, y, rotateX, rotateY, rotateZ }}
-                animate={{ y: [0, 8, 0], rotateZ: [-1.6, 1.6, -1.6] }}
-                transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-                whileTap={{ scale: 1.025, cursor: "grabbing" }}
-                className="absolute left-1/2 top-56 w-[345px] -translate-x-1/2 cursor-grab overflow-hidden rounded-[2.6rem] border border-white/70 bg-white/85 text-black shadow-[0_40px_100px_rgba(0,0,0,0.32)] backdrop-blur-2xl"
+                animate={{ y: [0, 10, 0], rotateZ: [-2, 2, -2] }}
+                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                whileTap={{ scale: 1.03, cursor: "grabbing" }}
+                className="absolute top-52 w-[350px] cursor-grab rounded-[2.5rem] overflow-hidden bg-white/90 text-black backdrop-blur-2xl shadow-[0_30px_80px_rgba(0,0,0,0.25)] border border-white"
               >
-                <div className="p-5">
-                  <div className="mx-auto mb-6 h-5 w-28 rounded-full bg-gray-300" />
+                <div className="p-5 bg-gradient-to-br from-white to-gray-100">
+                  <div className="h-5 w-28 mx-auto rounded-full bg-gray-300 mb-6" />
 
-                  <div className="overflow-hidden rounded-[2rem] border border-gray-200 bg-[#f5f5f7]">
+                  <div className="rounded-[2rem] overflow-hidden bg-[#f5f5f7] border border-gray-200">
                     <img
                       src="/profile.jpg"
                       alt="Mike Ongco"
-                      className="h-72 w-full object-cover object-top"
+                      className="w-full h-72 object-cover object-top"
                     />
                   </div>
 
-                  <div className="mt-7 text-center">
-                    <h2 className="text-2xl font-semibold tracking-tight">
+                  <div className="text-center mt-7">
+                    <h3 className="text-2xl font-semibold tracking-tight">
                       Mike Hendrick L. Ongco
-                    </h2>
+                    </h3>
                     <p className="mt-2 text-gray-500">
-                      Graphic Designer • Video Editor
+                      Graphic Designer • Content Creator
                     </p>
                   </div>
 
-                  <div className="mt-7 space-y-3 rounded-[2rem] bg-[#f5f5f7] p-5 text-sm text-gray-700">
+                  <div className="mt-7 rounded-3xl bg-[#f5f5f7] p-5 text-sm text-gray-700 space-y-3">
                     <p>📧 mikeongco8@gmail.com</p>
                     <p>📱 +639458828914</p>
                     <p>📍 Cebu City, Philippines</p>
@@ -200,108 +233,52 @@ export default function PortfolioWebsite() {
                 </div>
               </motion.div>
             </div>
-          </motion.div>
+          </div>
         </div>
-      </motion.section>
+      </section>
 
-      <section id="work" className="px-6 py-28">
-        <div className="mx-auto max-w-7xl">
-          <motion.div
-            initial={{ opacity: 0, y: 35 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-120px" }}
-            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-16 max-w-4xl"
-          >
-            <p className="mb-5 text-sm uppercase tracking-[0.45em] text-gray-500">
-              Selected Work
-            </p>
-            <h2 className="text-5xl font-semibold leading-[0.95] tracking-[-0.065em] md:text-7xl">
-              Projects presented with clarity, scale, and proof.
-            </h2>
-          </motion.div>
+      <section id="experience" className="py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-5xl md:text-6xl font-semibold tracking-tight mb-12">
+            Experience.
+          </h2>
 
-          <div className="grid gap-7">
-            {projects.map((project, index) => (
-              <motion.article
-                key={project.title}
-                initial={{ opacity: 0, y: 45 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{
-                  delay: index * 0.08,
-                  duration: 0.85,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className={`grid overflow-hidden rounded-[2.8rem] border ${card} lg:grid-cols-2`}
+          <div className="grid md:grid-cols-3 gap-6">
+            {experiences.map((item) => (
+              <motion.div
+                key={item.title}
+                whileHover={{ y: -8 }}
+                className={`rounded-[2rem] p-8 shadow-sm border transition ${
+                  darkMode
+                    ? "bg-white/10 border-white/10"
+                    : "bg-white border-black/5"
+                }`}
               >
-                <div
-                  className={`flex min-h-[420px] items-center justify-center ${
-                    darkMode ? "bg-white/[0.03]" : "bg-[#efeff2]"
-                  }`}
-                >
-                  {project.type === "video" ? (
-                    <video
-                      controls
-                      muted
-                      loop
-                      playsInline
-                      className="h-full max-h-[520px] w-full object-contain"
-                    >
-                      <source src="/lyrical.mp4" type="video/mp4" />
-                    </video>
-                  ) : (
-                    <div className="px-10 text-center">
-                      <p className="text-3xl font-semibold tracking-tight text-gray-400">
-                        {project.type === "text"
-                          ? "Service • Accuracy • Support"
-                          : "Graphic Design Showcase"}
-                      </p>
-                    </div>
-                  )}
-                </div>
-
-                <div className="flex flex-col justify-center p-8 md:p-12">
-                  <p className="mb-5 text-sm uppercase tracking-[0.3em] text-gray-500">
-                    {project.label}
-                  </p>
-                  <h3 className="text-4xl font-semibold tracking-[-0.04em] md:text-5xl">
-                    {project.title}
-                  </h3>
-                  <p className="mt-6 text-lg leading-relaxed text-gray-500">
-                    {project.description}
-                  </p>
-                </div>
-              </motion.article>
+                <h3 className="text-2xl font-semibold mb-4">{item.title}</h3>
+                <p className="text-gray-500 leading-relaxed">{item.description}</p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="skills" className={`px-6 py-28 ${darkMode ? "bg-white/[0.04]" : "bg-white"}`}>
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-14 max-w-4xl">
-            <p className="mb-5 text-sm uppercase tracking-[0.45em] text-gray-500">
-              Capabilities
-            </p>
-            <h2 className="text-5xl font-semibold leading-[0.95] tracking-[-0.065em] md:text-7xl">
-              A clean mix of creative and support skills.
-            </h2>
-          </div>
+      <section
+        id="skills"
+        className={`py-24 px-6 ${darkMode ? "bg-white/5" : "bg-white"}`}
+      >
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-5xl md:text-6xl font-semibold tracking-tight mb-12">
+            Skills.
+          </h2>
 
-          <div className="grid gap-4 md:grid-cols-3">
-            {skills.map((skill, index) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+            {skills.map((skill) => (
               <motion.div
                 key={skill}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  delay: index * 0.04,
-                  duration: 0.7,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className={`rounded-[2rem] border p-8 text-xl font-semibold ${card}`}
+                whileHover={{ scale: 1.04 }}
+                className={`rounded-[2rem] p-7 text-center font-semibold text-lg transition ${
+                  darkMode ? "bg-white/10" : "bg-[#f5f5f7]"
+                }`}
               >
                 {skill}
               </motion.div>
@@ -310,58 +287,148 @@ export default function PortfolioWebsite() {
         </div>
       </section>
 
-      <section id="contact" className="px-6 py-32">
-        <motion.div
-          initial={{ opacity: 0, y: 35 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-120px" }}
-          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-          className={`mx-auto max-w-6xl rounded-[3rem] border p-8 text-center md:p-16 ${card}`}
-        >
-          <p className="mb-5 text-sm uppercase tracking-[0.45em] text-gray-500">
-            Contact
-          </p>
-
-          <h2 className="text-5xl font-semibold leading-[0.95] tracking-[-0.065em] md:text-8xl">
-            Let’s build something clean.
+      <section id="projects" className="py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-5xl md:text-6xl font-semibold tracking-tight mb-12">
+            Selected Works.
           </h2>
 
-          <p className="mx-auto mt-8 max-w-2xl text-xl leading-relaxed text-gray-500">
-            Open for graphic design, video editing, TikTok content, data entry,
-            and customer support opportunities.
+          <div className="grid md:grid-cols-3 gap-6">
+            {projects.map((project) => (
+              <motion.div
+                key={project.title}
+                whileHover={{ y: -8 }}
+                className={`rounded-[2rem] overflow-hidden shadow-sm border transition ${
+                  darkMode
+                    ? "bg-white/10 border-white/10"
+                    : "bg-white border-black/5"
+                }`}
+              >
+                {project.type === "video" ? (
+                  <video
+                    controls
+                    muted
+                    loop
+                    playsInline
+                    className="h-80 w-full bg-black object-contain"
+                  >
+                    <source src="/lyrical.mp4" type="video/mp4" />
+                  </video>
+                ) : (
+                  <div
+                    className={`h-80 flex items-center justify-center text-gray-400 text-xl font-semibold ${
+                      darkMode ? "bg-white/5" : "bg-[#f5f5f7]"
+                    }`}
+                  >
+                    Project Image
+                  </div>
+                )}
+
+                <div className="p-7">
+                  <h3 className="text-2xl font-semibold mb-3">{project.title}</h3>
+                  <p className="text-gray-500 leading-relaxed">
+                    {project.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="contact"
+        className={`py-24 px-6 ${darkMode ? "bg-white/5" : "bg-white"}`}
+      >
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-5xl md:text-6xl font-semibold tracking-tight mb-6">
+            Let’s work together.
+          </h2>
+
+          <p className="text-xl text-gray-500 mb-12">
+            Open for freelance projects, social media design, branding, video
+            editing, data entry, and creative collaborations.
           </p>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-3">
-            <a
-              href="mailto:mikeongco8@gmail.com"
-              className={`rounded-[2rem] p-6 transition hover:scale-[1.02] ${
-                darkMode ? "bg-white/[0.06]" : "bg-[#f5f5f7]"
-              }`}
-            >
-              <p className="font-semibold">Email</p>
-              <p className="mt-2 text-gray-500">mikeongco8@gmail.com</p>
-            </a>
+          <div className="grid md:grid-cols-3 gap-5">
+            {[
+              ["Email", "mikeongco8@gmail.com"],
+              ["Phone", "+639458828914"],
+              ["Location", "Cebu City, Philippines"],
+            ].map(([title, value]) => (
+              <div
+                key={title}
+                className={`rounded-[2rem] p-7 transition ${
+                  darkMode ? "bg-white/10" : "bg-[#f5f5f7]"
+                }`}
+              >
+                <h3 className="font-semibold text-xl mb-2">{title}</h3>
+                <p className="text-gray-500">{value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div
-              className={`rounded-[2rem] p-6 ${
-                darkMode ? "bg-white/[0.06]" : "bg-[#f5f5f7]"
-              }`}
-            >
-              <p className="font-semibold">Phone</p>
-              <p className="mt-2 text-gray-500">+639458828914</p>
-            </div>
+      <button
+        onClick={() => setChatOpen(!chatOpen)}
+        className="fixed bottom-6 right-6 z-50 h-16 w-16 rounded-full bg-[#0071e3] text-white text-2xl shadow-2xl hover:scale-110 transition"
+      >
+        🤖
+      </button>
 
-            <div
-              className={`rounded-[2rem] p-6 ${
-                darkMode ? "bg-white/[0.06]" : "bg-[#f5f5f7]"
+      {chatOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          className={`fixed bottom-28 right-6 z-50 w-[340px] rounded-[2rem] overflow-hidden shadow-2xl border ${
+            darkMode
+              ? "bg-black border-white/10 text-white"
+              : "bg-white border-black/10 text-black"
+          }`}
+        >
+          <div className="bg-[#0071e3] text-white p-5">
+            <h3 className="font-semibold text-lg">Mike AI Assistant</h3>
+            <p className="text-sm text-white/80">Ask about my portfolio</p>
+          </div>
+
+          <div className="h-80 overflow-y-auto p-5 space-y-4">
+            {chat.map((item, index) => (
+              <div
+                key={index}
+                className={`p-3 rounded-2xl text-sm max-w-[85%] ${
+                  item.from === "user"
+                    ? "ml-auto bg-[#0071e3] text-white"
+                    : darkMode
+                    ? "bg-white/10"
+                    : "bg-gray-100"
+                }`}
+              >
+                {item.text}
+              </div>
+            ))}
+          </div>
+
+          <div className="p-4 flex gap-2 border-t border-black/10">
+            <input
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && askBot()}
+              placeholder="Ask something..."
+              className={`flex-1 px-4 py-3 rounded-full outline-none text-sm ${
+                darkMode ? "bg-white/10 text-white" : "bg-gray-100 text-black"
               }`}
+            />
+
+            <button
+              onClick={askBot}
+              className="bg-[#0071e3] text-white px-4 rounded-full font-semibold"
             >
-              <p className="font-semibold">Location</p>
-              <p className="mt-2 text-gray-500">Cebu City, Philippines</p>
-            </div>
+              Send
+            </button>
           </div>
         </motion.div>
-      </section>
+      )}
     </div>
   );
 }
