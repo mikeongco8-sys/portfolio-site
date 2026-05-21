@@ -14,22 +14,25 @@ const skills = [
 
 const projects = [
   {
+    title: "Fight Club Inspired Poster",
+    description:
+      "A cinematic editorial poster design using bold typography, gritty textures, and minimalist movie-poster composition.",
+    type: "image",
+    src: "/design1.png",
+  },
+  {
     title: "Viral TikTok Lyrical Video",
     description:
       "A lyrical video project that reached 655k+ views, showing strong audience engagement and creative video editing skills.",
     type: "video",
-  },
-  {
-    title: "Social Media Graphic Design",
-    description:
-      "Clean and modern graphics designed for social media posts, branding, and online content presentation.",
-    type: "image",
+    src: "/lyrical.mp4",
   },
   {
     title: "Creative Video Editing",
     description:
       "Short-form video editing focused on visual timing, text placement, and audience retention.",
     type: "image",
+    src: "/design2.png",
   },
 ];
 
@@ -92,7 +95,7 @@ export default function PortfolioWebsite() {
         "Mike has experience in healthcare customer service, TikTok content creation, video editing, and graphic design.";
     } else if (userMessage.includes("project") || userMessage.includes("work")) {
       reply =
-        "Mike’s featured project is a viral TikTok lyrical video that reached 655k+ views, plus social media design and creative video editing samples.";
+        "Mike’s featured projects include a Fight Club inspired poster design, a viral TikTok lyrical video that reached 655k+ views, and creative video editing samples.";
     } else if (userMessage.includes("contact") || userMessage.includes("email")) {
       reply =
         "You can contact Mike at mikeongco8@gmail.com or +639458828914. He is based in Cebu City, Philippines.";
@@ -113,9 +116,7 @@ export default function PortfolioWebsite() {
     >
       <nav
         className={`fixed top-0 left-0 w-full z-50 backdrop-blur-xl border-b transition ${
-          darkMode
-            ? "bg-black/70 border-white/10"
-            : "bg-white/70 border-black/5"
+          darkMode ? "bg-black/70 border-white/10" : "bg-white/70 border-black/5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -159,7 +160,7 @@ export default function PortfolioWebsite() {
             <p className="text-gray-500 text-lg mb-4">Portfolio</p>
 
             <h2 className="text-6xl md:text-8xl font-semibold tracking-tight leading-none">
-              Design that feels simple.
+              Design that feels simple
             </h2>
 
             <p className="mt-8 text-2xl md:text-3xl text-gray-500 max-w-2xl">
@@ -179,9 +180,7 @@ export default function PortfolioWebsite() {
                 href="/cv.pdf"
                 download
                 className={`px-7 py-4 rounded-full font-medium transition ${
-                  darkMode
-                    ? "bg-white text-black"
-                    : "bg-black text-white"
+                  darkMode ? "bg-white text-black" : "bg-black text-white"
                 }`}
               >
                 Download CV
@@ -240,7 +239,7 @@ export default function PortfolioWebsite() {
       <section id="experience" className="py-24 px-6">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl md:text-6xl font-semibold tracking-tight mb-12">
-            Experience.
+            Experience
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -249,9 +248,7 @@ export default function PortfolioWebsite() {
                 key={item.title}
                 whileHover={{ y: -8 }}
                 className={`rounded-[2rem] p-8 shadow-sm border transition ${
-                  darkMode
-                    ? "bg-white/10 border-white/10"
-                    : "bg-white border-black/5"
+                  darkMode ? "bg-white/10 border-white/10" : "bg-white border-black/5"
                 }`}
               >
                 <h3 className="text-2xl font-semibold mb-4">{item.title}</h3>
@@ -268,7 +265,7 @@ export default function PortfolioWebsite() {
       >
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl md:text-6xl font-semibold tracking-tight mb-12">
-            Skills.
+            Skills
           </h2>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
@@ -290,7 +287,7 @@ export default function PortfolioWebsite() {
       <section id="projects" className="py-24 px-6">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl md:text-6xl font-semibold tracking-tight mb-12">
-            Selected Works.
+            Selected Works
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -299,9 +296,7 @@ export default function PortfolioWebsite() {
                 key={project.title}
                 whileHover={{ y: -8 }}
                 className={`rounded-[2rem] overflow-hidden shadow-sm border transition ${
-                  darkMode
-                    ? "bg-white/10 border-white/10"
-                    : "bg-white border-black/5"
+                  darkMode ? "bg-white/10 border-white/10" : "bg-white border-black/5"
                 }`}
               >
                 {project.type === "video" ? (
@@ -312,16 +307,14 @@ export default function PortfolioWebsite() {
                     playsInline
                     className="h-80 w-full bg-black object-contain"
                   >
-                    <source src="/lyrical.mp4" type="video/mp4" />
+                    <source src={project.src} type="video/mp4" />
                   </video>
                 ) : (
-                  <div
-                    className={`h-80 flex items-center justify-center text-gray-400 text-xl font-semibold ${
-                      darkMode ? "bg-white/5" : "bg-[#f5f5f7]"
-                    }`}
-                  >
-                    Project Image
-                  </div>
+                  <img
+                    src={project.src}
+                    alt={project.title}
+                    className="h-80 w-full object-cover"
+                  />
                 )}
 
                 <div className="p-7">
@@ -342,7 +335,7 @@ export default function PortfolioWebsite() {
       >
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-5xl md:text-6xl font-semibold tracking-tight mb-6">
-            Let’s work together.
+            Let’s work together
           </h2>
 
           <p className="text-xl text-gray-500 mb-12">
@@ -382,9 +375,7 @@ export default function PortfolioWebsite() {
           initial={{ opacity: 0, y: 30, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           className={`fixed bottom-28 right-6 z-50 w-[340px] rounded-[2rem] overflow-hidden shadow-2xl border ${
-            darkMode
-              ? "bg-black border-white/10 text-white"
-              : "bg-white border-black/10 text-black"
+            darkMode ? "bg-black border-white/10 text-white" : "bg-white border-black/10 text-black"
           }`}
         >
           <div className="bg-[#0071e3] text-white p-5">
