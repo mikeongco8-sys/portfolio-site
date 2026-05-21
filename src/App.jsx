@@ -54,6 +54,23 @@ const experiences = [
   },
 ];
 
+const tools = [
+  { name: "Gmail", icon: "https://cdn.simpleicons.org/gmail" },
+  { name: "Outlook", icon: "https://cdn.simpleicons.org/microsoftoutlook" },
+  { name: "WhatsApp", icon: "https://cdn.simpleicons.org/whatsapp" },
+  { name: "Slack", icon: "https://cdn.simpleicons.org/slack" },
+  { name: "Zoom", icon: "https://cdn.simpleicons.org/zoom" },
+  { name: "Google Drive", icon: "https://cdn.simpleicons.org/googledrive" },
+  { name: "Google Calendar", icon: "https://cdn.simpleicons.org/googlecalendar" },
+  { name: "Google Sheets", icon: "https://cdn.simpleicons.org/googlesheets" },
+  { name: "Canva", icon: "https://cdn.simpleicons.org/canva" },
+  { name: "CapCut", icon: "https://cdn.simpleicons.org/capcut" },
+  { name: "Figma", icon: "https://cdn.simpleicons.org/figma" },
+  { name: "Notion", icon: "https://cdn.simpleicons.org/notion" },
+  { name: "Trello", icon: "https://cdn.simpleicons.org/trello" },
+  { name: "Asana", icon: "https://cdn.simpleicons.org/asana" },
+];
+
 export default function PortfolioWebsite() {
   const [darkMode, setDarkMode] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
@@ -123,7 +140,7 @@ export default function PortfolioWebsite() {
           <h1 className="font-semibold text-xl">Mike Ongco</h1>
 
           <div className="hidden md:flex gap-3 text-sm text-gray-500">
-            {["Experience", "Skills", "Projects", "Contact"].map((item) => (
+            {["Experience", "Skills", "Tools", "Projects", "Contact"].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
@@ -283,6 +300,48 @@ export default function PortfolioWebsite() {
           </div>
         </div>
       </section>
+
+      <section
+  id="tools"
+  className={`py-24 px-6 ${
+    darkMode ? "bg-black" : "bg-[#f5f5f7]"
+  }`}
+>
+  <div className="max-w-7xl mx-auto text-center">
+    <h2 className="text-5xl md:text-6xl font-semibold tracking-tight mb-4">
+      Tools I Use
+    </h2>
+
+    <p className="text-gray-500 text-lg mb-12">
+      Tools I use for communication, design, content creation,
+      productivity, and admin work.
+    </p>
+
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-5">
+      {tools.map((tool) => (
+        <motion.div
+          key={tool.name}
+          whileHover={{ y: -6, scale: 1.04 }}
+          className={`rounded-[2rem] p-6 flex flex-col items-center justify-center gap-4 border transition ${
+            darkMode
+              ? "bg-white/10 border-white/10"
+              : "bg-white border-black/5 shadow-sm"
+          }`}
+        >
+          <img
+            src={tool.icon}
+            alt={tool.name}
+            className="w-10 h-10 object-contain"
+          />
+
+          <p className="text-sm font-semibold text-gray-500">
+            {tool.name}
+          </p>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
 
       <section id="projects" className="py-24 px-6">
         <div className="max-w-7xl mx-auto">
