@@ -55,20 +55,20 @@ const experiences = [
 ];
 
 const tools = [
-  { name: "Gmail", icon: "https://cdn.simpleicons.org/gmail" },
-  { name: "Outlook", icon: "https://cdn.simpleicons.org/microsoftoutlook" },
-  { name: "WhatsApp", icon: "https://cdn.simpleicons.org/whatsapp" },
-  { name: "Slack", icon: "https://cdn.simpleicons.org/slack" },
-  { name: "Zoom", icon: "https://cdn.simpleicons.org/zoom" },
-  { name: "Google Drive", icon: "https://cdn.simpleicons.org/googledrive" },
-  { name: "Google Calendar", icon: "https://cdn.simpleicons.org/googlecalendar" },
-  { name: "Google Sheets", icon: "https://cdn.simpleicons.org/googlesheets" },
-  { name: "Canva", icon: "https://cdn.simpleicons.org/canva" },
-  { name: "CapCut", icon: "https://cdn.simpleicons.org/capcut" },
-  { name: "Figma", icon: "https://cdn.simpleicons.org/figma" },
-  { name: "Notion", icon: "https://cdn.simpleicons.org/notion" },
-  { name: "Trello", icon: "https://cdn.simpleicons.org/trello" },
-  { name: "Asana", icon: "https://cdn.simpleicons.org/asana" },
+  { name: "Gmail", icon: "https://cdn.simpleicons.org/gmail/EA4335" },
+  { name: "Outlook", icon: "https://cdn.simpleicons.org/microsoftoutlook/0078D4" },
+  { name: "WhatsApp", icon: "https://cdn.simpleicons.org/whatsapp/25D366" },
+  { name: "Slack", icon: "https://cdn.simpleicons.org/slack/4A154B" },
+  { name: "Zoom", icon: "https://cdn.simpleicons.org/zoom/0B5CFF" },
+  { name: "Google Drive", icon: "https://cdn.simpleicons.org/googledrive/4285F4" },
+  { name: "Google Calendar", icon: "https://cdn.simpleicons.org/googlecalendar/4285F4" },
+  { name: "Google Sheets", icon: "https://cdn.simpleicons.org/googlesheets/34A853" },
+  { name: "Canva", icon: "https://cdn.simpleicons.org/canva/00C4CC" },
+  { name: "CapCut", icon: "https://cdn.simpleicons.org/capcut/000000" },
+  { name: "Figma", icon: "https://cdn.simpleicons.org/figma/F24E1E" },
+  { name: "Notion", icon: "https://cdn.simpleicons.org/notion/000000" },
+  { name: "Trello", icon: "https://cdn.simpleicons.org/trello/0052CC" },
+  { name: "Asana", icon: "https://cdn.simpleicons.org/asana/F06A6A" },
 ];
 
 export default function PortfolioWebsite() {
