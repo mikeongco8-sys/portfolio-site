@@ -56,15 +56,24 @@ const experiences = [
 
 const tools = [
   { name: "Gmail", icon: "https://cdn.simpleicons.org/gmail/EA4335" },
-  { name: "Outlook", icon: "https://cdn.simpleicons.org/microsoftoutlook/0078D4" },
+  {
+  name: "Outlook",
+  icon: "https://img.icons8.com/color/96/microsoft-outlook-2019.png"
+},
   { name: "WhatsApp", icon: "https://cdn.simpleicons.org/whatsapp/25D366" },
-  { name: "Slack", icon: "https://cdn.simpleicons.org/slack/4A154B" },
+  { name: "Slack", icon: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg" },
   { name: "Zoom", icon: "https://cdn.simpleicons.org/zoom/0B5CFF" },
   { name: "Google Drive", icon: "https://cdn.simpleicons.org/googledrive/4285F4" },
   { name: "Google Calendar", icon: "https://cdn.simpleicons.org/googlecalendar/4285F4" },
   { name: "Google Sheets", icon: "https://cdn.simpleicons.org/googlesheets/34A853" },
-  { name: "Canva", icon: "https://cdn.simpleicons.org/canva/00C4CC" },
-  { name: "CapCut", icon: "https://cdn.simpleicons.org/capcut/000000" },
+  {
+  name: "Canva",
+  icon: "https://img.icons8.com/color/96/canva.png"
+},
+  {
+  name: "CapCut",
+  iconText: "CC"
+},
   { name: "Figma", icon: "https://cdn.simpleicons.org/figma/F24E1E" },
   { name: "Notion", icon: "https://cdn.simpleicons.org/notion/000000" },
   { name: "Trello", icon: "https://cdn.simpleicons.org/trello/0052CC" },
@@ -328,11 +337,17 @@ export default function PortfolioWebsite() {
               : "bg-white border-black/5 shadow-sm"
           }`}
         >
-          <img
-            src={tool.icon}
-            alt={tool.name}
-            className="w-10 h-10 object-contain"
-          />
+          {tool.icon ? (
+  <img
+    src={tool.icon}
+    alt={tool.name}
+    className="w-10 h-10 object-contain"
+  />
+) : (
+  <div className="w-10 h-10 rounded-xl bg-black text-white flex items-center justify-center font-bold">
+    {tool.iconText}
+  </div>
+)}
 
           <p className="text-sm font-semibold text-gray-500">
             {tool.name}
