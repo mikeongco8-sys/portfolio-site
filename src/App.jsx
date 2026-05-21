@@ -271,12 +271,24 @@ export default function PortfolioWebsite() {
           <div className="grid md:grid-cols-3 gap-6">
             {experiences.map((item) => (
               <motion.div
-                key={item.title}
-                whileHover={{ y: -8 }}
-                className={`rounded-[2rem] p-8 shadow-sm border transition ${
-                  darkMode ? "bg-white/10 border-white/10" : "bg-white border-black/5"
-                }`}
-              >
+  key={item.title}
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{
+    duration: 0.8,
+    ease: [0.22, 1, 0.36, 1],
+  }}
+  whileHover={{
+    y: -10,
+    scale: 1.015,
+  }}
+  className={`rounded-[2rem] p-8 shadow-sm border transition ${
+    darkMode
+      ? "bg-white/10 border-white/10"
+      : "bg-white border-black/5"
+  }`}
+>
                 <h3 className="text-2xl font-semibold mb-4">{item.title}</h3>
                 <p className="text-gray-500 leading-relaxed">{item.description}</p>
               </motion.div>
@@ -298,7 +310,17 @@ export default function PortfolioWebsite() {
             {skills.map((skill) => (
               <motion.div
                 key={skill}
-                whileHover={{ scale: 1.04 }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.8,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{
+                  scale: 1.03,
+                  y: -6,
+                }}
                 className={`rounded-[2rem] p-7 text-center font-semibold text-lg transition ${
                   darkMode ? "bg-white/10" : "bg-[#f5f5f7]"
                 }`}
@@ -330,7 +352,17 @@ export default function PortfolioWebsite() {
       {tools.map((tool) => (
         <motion.div
           key={tool.name}
-          whileHover={{ y: -6, scale: 1.04 }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          whileHover={{
+            scale: 1.03,
+            y: -6,
+          }}
           className={`rounded-[2rem] p-6 flex flex-col items-center justify-center gap-4 border transition ${
             darkMode
               ? "bg-white/10 border-white/10"
@@ -368,9 +400,21 @@ export default function PortfolioWebsite() {
             {projects.map((project) => (
               <motion.div
                 key={project.title}
-                whileHover={{ y: -8 }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.8,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{
+                  y: -10,
+                  scale: 1.015,
+                }}
                 className={`rounded-[2rem] overflow-hidden shadow-sm border transition ${
-                  darkMode ? "bg-white/10 border-white/10" : "bg-white border-black/5"
+                  darkMode
+                    ? "bg-white/10 border-white/10"
+                    : "bg-white border-black/5"
                 }`}
               >
                 {project.type === "video" ? (
